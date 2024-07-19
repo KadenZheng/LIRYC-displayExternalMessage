@@ -32,14 +32,17 @@ function checkLocalStorage() {
 
         try {
             const parsedData = JSON.parse(storedMessage);
-            if (parsedData.customDataClient && Array.isArray(parsedData.customDataClient)) {
-                const formattedData = parsedData.customDataClient.join(", ");
-                displayElement.textContent = `customDataClient: ${formattedData}`;
-            } else if (parsedData.heartRateClient) {
-                const heartRate = parseFloat(parsedData.heartRateClient).toFixed(3);
-                displayElement.textContent = `heartRateClient: ${heartRate}`;
+            const key = Object.keys(parsedData)[0]; // Get the first key of the object
+            const value = parsedData[key];
+
+            if (Array.isArray(value)) {
+                const formattedData = value.join(", ");
+                displayElement.textContent = `${key}: ${formattedData}`;
+            } else if (typeof value === "number") {
+                const formattedValue = parseFloat(value).toFixed(3);
+                displayElement.textContent = `${key}: ${formattedValue}`;
             } else {
-                displayElement.textContent = storedMessage;
+                displayElement.textContent = `${key}: ${value}`;
             }
         } catch (error) {
             console.error("Error parsing stored message:", error);
