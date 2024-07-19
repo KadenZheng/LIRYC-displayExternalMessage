@@ -1,0 +1,16 @@
+{
+    "manifest_version": 3,
+    "name": "PostMessage Display",
+    "version": "1.0",
+    "description": "Displays postMessage data on the top left corner of the screen",
+    "permissions": ["activeTab"],
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content.js"]
+        }
+    ],
+    "background": {
+        "service_worker": "background.js"
+    }
+}
